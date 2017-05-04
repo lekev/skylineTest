@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+$btn-padding-x:                  .4rem ;
+$btn-padding-y:                  .2rem ;
+$btn-primary-color:              black ;
+$btn-primary-bg:                 white ;
+$btn-primary-border:             #d2d2d2 ;
+
+@import "bootstrap/bootstrap";
+@import "spinner";
+@import "utils";
+@import "rtl";
+@import "responsive";
+@import "panel";

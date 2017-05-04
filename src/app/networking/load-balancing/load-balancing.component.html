@@ -1,0 +1,46 @@
+<app-page-header [heading]="'Load Balancing'" [icon]="'fa-bar-chart-o'"></app-page-header>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+
+      <div class="panel-title">
+        <i class="fa fa-check-circle-o text-success" aria-hidden="true"></i>
+         http-collector-lb
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col">
+            <b>Backend</b>
+            <select id="select">
+              <option *ngFor="let loadBalancer of loadBalancers | async" [value]="loadBalancer">{{loadBalancer}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <form [formGroup]="chartTimeForm">
+              <div ngbRadioGroup name="radioBasic" formControlName="time">
+                <label *ngFor="let timeOption of timeOptions" class="btn btn-primary">
+                  <input type="radio" [value]="timeOption.value"> {{timeOption.label}}
+                </label>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <google-chart [data]="chartOptions" (chartReady)='onChartReady($event)'></google-chart>
+          </div>
+        </div>
+        <div class="row">
+          <label *ngFor="let serverName of serverNames" class="checkbox-inline">
+            <input type="checkbox" [value]="serverName">{{serverName}}</label>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

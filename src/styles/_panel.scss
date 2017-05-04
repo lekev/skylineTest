@@ -1,0 +1,159 @@
+.panel {
+  box-shadow: none;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative
+}
+
+.panel-footer {
+  margin: -20px;
+  margin-top: 20px;
+  background: #f9f9f9
+}
+
+.panel-transparent {
+  background: none;
+  border: none
+}
+
+.panel-transparent .panel-title {
+  background: none;
+  border: none
+}
+
+.panel-default>.panel-heading {
+  background-color: inherit;
+  border-bottom: 0;
+  color: #3D464D
+}
+
+.panel-title {
+  color: #58666e;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 16px 20px;
+  margin: -20px;
+  background: #fff;
+  margin-bottom: 5px;
+  border-bottom: none;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px
+}
+
+.panel-body,.panel-heading {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border-color: none
+}
+
+.panel-heading {
+  background: transparent;
+  border-bottom: transparent
+}
+
+.panel .badge {
+  font-size: 11px;
+  font-family: 'Roboto',sans-serif;
+  text-transform: none;
+  padding: 4px 10px;
+  margin-left: 5px;
+  font-weight: normal
+}
+
+.panel-footer {
+  background: rgba(0,0,0,0.01);
+  border-top: 1px solid inherit
+}
+
+.panel-title .badge {
+  color: #fff;
+  background-color: rgba(0,0,0,0.2)
+}
+
+.panel-heading {
+  font-size: 20px;
+  padding-bottom: 15px;
+  font-weight: 300
+}
+
+.panel .list-group {
+  margin: -20px;
+  margin-top: 20px;
+  background: transparent
+}
+
+.panel .list-group li {
+  border: 1px solid rgba(255,255,255,0.2);
+  border-left: 0;
+  background: transparent;
+  border-right: 0
+}
+
+.panel .list-group-item:first-child {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px
+}
+
+.panel .list-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom: 0
+}
+
+.panel-collapse {
+  padding-bottom: 0
+}
+
+.panel-collapse .panel-title {
+  padding-bottom: 0;
+  margin-bottom: 0
+}
+
+.panel-collapse .panel-body {
+  padding: 10px 0 20px 0
+}
+
+.panel-widget {
+  overflow: hidden;
+  border: none
+}
+
+.panel-default {
+  border-color: #ddd
+}
+
+.panel-default .badge {
+  color: inherit;
+  background-color: rgba(0,0,0,0.2)
+}
+
+.panel-default .list-group {
+  margin: -20px;
+  margin-top: 20px
+}
+
+.panel-default .list-group li {
+  border: 1px solid #ddd;
+  border-left: 0;
+  border-right: 0
+}
+
+.panel-default .list-group-item:first-child {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px
+}
+
+.panel-default .list-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom: 0
+}
+
+
+
