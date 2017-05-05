@@ -5,9 +5,10 @@ import {ChartsModule as Ng2Charts} from 'ng2-charts';
 import {LoadBalancingRoutingModule} from './load-balancing-routing.module';
 import {LoadBalancingComponent} from './load-balancing.component';
 import {PageHeaderModule} from '../../shared';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import {NgbButtonsModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NvD3Module} from "angular2-nvd3";
+import { ServersChartComponent } from './servers-chart/servers-chart.component';
 
 
 @NgModule({
@@ -19,9 +20,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     FormsModule,
     ReactiveFormsModule,
     PageHeaderModule,
-    Ng2GoogleChartsModule
+    NvD3Module
   ],
-  declarations: [LoadBalancingComponent]
+  declarations: [LoadBalancingComponent, ServersChartComponent]
 })
 export class LoadBalancingModule {
 }
