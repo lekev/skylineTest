@@ -7,9 +7,9 @@ export class HttpCollectorLbService {
 
   private loabBalancers = ["http-collector-lb-backend-service"];
   public instanceGroups = [
-    {groupName: "asia", code: 'asia', servers: ['central', 'east']},
-    {groupName: "europe", code: 'eu', servers: ['central', 'west']},
-    {groupName: "North America", code: 'us-central', servers: ['central', 'west']}
+    {groupName: "http-collector-asia", code: 'asia', servers: ['central', 'east']},
+    {groupName: "http-collector-europe", code: 'eu', servers: ['central', 'west']},
+    {groupName: "http-collector-North America", code: 'us-central', servers: ['central', 'west']}
   ];
 
   constructor() {

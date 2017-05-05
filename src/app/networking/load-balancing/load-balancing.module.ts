@@ -9,6 +9,8 @@ import {NgbButtonsModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NvD3Module} from "angular2-nvd3";
 import { ServersChartComponent } from './servers-chart/servers-chart.component';
+import {MomentModule} from "angular2-moment";
+import {MdCheckboxModule} from "@angular/material";
 
 
 @NgModule({
@@ -17,8 +19,10 @@ import { ServersChartComponent } from './servers-chart/servers-chart.component';
     Ng2Charts,
     LoadBalancingRoutingModule,
     NgbButtonsModule.forRoot(),
+    MdCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
+    MomentModule,
     PageHeaderModule,
     NvD3Module
   ],

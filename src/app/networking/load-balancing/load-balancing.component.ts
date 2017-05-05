@@ -55,8 +55,12 @@ export class LoadBalancingComponent implements OnInit {
   public timeOptions;
   public chartOptions;
   public chartData;
+  public chartSeries;
+  public lastOverTimeChart;
   public serverNames;
+  private chart;
   private chartRef;
+  private colors = ["#5cbae6","#b6d957","#fac364","#8cd3ff","#d998cb","#f2d249","#93b9c6","#ccc5a8","#52bacc","#dbdb46","#98aafb"];
 
   constructor(private formBuilder: FormBuilder,
               private httpCollectorLbService: HttpCollectorLbService) {
@@ -67,6 +71,7 @@ export class LoadBalancingComponent implements OnInit {
     this.chartTimeForm = this.formBuilder.group({
       time: 7 * 24
     });
+
     this.timeOptions = [
       {label: '1 hours', value: 1},
       {label: '6 hours', value: 6},
@@ -78,34 +83,34 @@ export class LoadBalancingComponent implements OnInit {
       {label: '14 days', value: 14 * 24},
       {label: '30 days', value: 30 * 24}];
 
+    this.lastOverTimeChart = new Date();
+
     this.chartOptions = {
       chart: {
-        type: 'stackedAreaChart',
+        type: 'lineChart',
         height: 300,
+        duration:500,
         showLegend:false,
+        key:(d) => d._id,
         tooltip:{
           enabled:false
         },
-
-        x: (d) => {
-          return d[0];
-        },
-        y: (d) => {
-          return d[1];
-        },
+        x: (d) => d[0],
+        y: (d) => d[1],
         showControls:false,
-        controlLabels:{
-          stacked:"Stacked"
-        },
         xAxis: {
-          tickFormat: (d) => {
-            return d3.time.format('%x')(new Date(d));
+          tickFormat: (d) => d3.time.format('%b %d')(new Date(d))
+        },
+        lines:{
+          dispatch: {
+            elementMouseover:  (e)=>{
+              e.series['lastMouseValue'] = e.point.y;
+              this.lastOverTimeChart = new Date(e.point.x);
+            }
           }
         },
-        yAxis: {
-          // tickFormat:()=>{
-          //   return d3.format(',.2f')
-          // }
+        callback: (e) => {
+          this.chart = e;
         }
       }
     };
@@ -115,10 +120,28 @@ export class LoadBalancingComponent implements OnInit {
   loadData() {
 
     this.httpCollectorLbService.getRpsForBackend('test', moment().subtract(7, 'day').toDate()).then((data) => {
-      this.chartData = data.map(d=>{
-        return {key:d.serverName,values:d.data};
-      })
+
+      this.chartSeries = data.map((d,i)=>{
+        return {
+          key:`${d.groupName} (${d.serverName})`,
+          values:d.data,color: this.colors[i%this.colors.length],
+          area:true,
+          visible: i === 0 ? true: false,
+          disabled: i === 0 ? false: true
+        };
+      });
+      // fix the problem that nvd3 component
+      this.chartData = this.chartSeries.slice();
+      console.log(this.chartData)
     });
+
+  }
+
+  onCheckServerChange(){
+    console.log('change');
+    let oldState = this.chart.state;
+    oldState.disabled = this.chartSeries.map(d=>!d.visible);
+    this.chart.dispatch.changeState(oldState);
 
   }
 }

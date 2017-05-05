@@ -12,3 +12,11 @@ $btn-primary-border:             #d2d2d2 ;
 @import "rtl";
 @import "responsive";
 @import "panel";
+
+.btn-group .btn.btn-primary.active{
+  background: white;
+  border-bottom: solid 2px #4474d9;
+}
+
+@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+

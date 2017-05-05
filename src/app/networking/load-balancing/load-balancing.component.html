@@ -5,7 +5,7 @@
 
       <div class="panel-title">
         <i class="fa fa-check-circle-o text-success" aria-hidden="true"></i>
-         http-collector-lb
+        http-collector-lb
       </div>
 
       <div class="panel-body">
@@ -13,10 +13,11 @@
           <div class="col">
             <b>Backend</b>
             <select id="select">
-              <option *ngFor="let loadBalancer of loadBalancers | async" [value]="loadBalancer">{{loadBalancer}}</option>
+              <option *ngFor="let loadBalancer of loadBalancers | async" [value]="loadBalancer">{{loadBalancer}}
+              </option>
             </select>
           </div>
-          <div class="col">
+          <div class="col text-right">
             <form [formGroup]="chartTimeForm">
               <div ngbRadioGroup name="radioBasic" formControlName="time">
                 <label *ngFor="let timeOption of timeOptions" class="btn btn-primary">
@@ -26,14 +27,32 @@
             </form>
           </div>
         </div>
+
         <div class="row">
+          <div class="col text-right">
+            {{lastOverTimeChart | amDateFormat:'lll'}}
+          </div>
+        </div>
+
+        <div class="row">
+          RPS for {{chartTimeForm.controls.time.value}}
+        </div>
+
+        <div class="row">
+
           <div class="col">
             <div appNvD3 [options]="chartOptions" [data]="chartData"></div>
           </div>
         </div>
+
         <div class="row">
-          <label *ngFor="let serverName of serverNames" class="checkbox-inline">
-            <input type="checkbox" [value]="serverName">{{serverName}}</label>
+          <div class="form-inline">
+            <div *ngFor="let server of chartSeries; let i = index;">
+            <md-checkbox   class="example-margin" (change)="onCheckServerChange(server)" [(ngModel)]="server.visible">
+              {{server.key}}:{{server.lastMouseValue || 0}}</md-checkbox>
+            </div>
+          </div>
+
 
         </div>
 
