@@ -11,6 +11,7 @@ import {NvD3Module} from "angular2-nvd3";
 import { ServersChartComponent } from './servers-chart/servers-chart.component';
 import {MomentModule} from "angular2-moment";
 import {MdCheckboxModule} from "@angular/material";
+import { SaCheckBoxComponent} from './shared/components/checkbox/checkbox.component';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import {MdCheckboxModule} from "@angular/material";
     PageHeaderModule,
     NvD3Module
   ],
-  declarations: [LoadBalancingComponent, ServersChartComponent]
+  declarations: [LoadBalancingComponent, ServersChartComponent, SaCheckBoxComponent]
 })
 export class LoadBalancingModule {
 }

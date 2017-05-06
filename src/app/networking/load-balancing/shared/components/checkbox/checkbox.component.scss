@@ -1,0 +1,29 @@
+.sa-checkbox-group{
+  cursor: pointer;
+
+  .sa-checkbox{
+    position: relative;
+    outline: none;
+    height: 16px;
+    width: 16px;
+    border: none;
+    border-radius: 3px;
+    &:after{
+      position: absolute;
+      content: '';
+      top: 1px;
+      left: 1px;
+      border: solid 1px white;
+      border-radius: 2px;
+      background: white;
+      height: 14px;
+      width: 14px;
+    }
+
+    &.checked:after{
+     background: transparent;
+    }
+  }
+
+
+}
