@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-1 pr-0 d-flex align-items-center justify-content-end ">
+    <div class=" text-right server-name">
+      <b>{{groupServer.region}}</b>
+      <div>{{groupServer.totalInBound}} RPS</div>
+    </div>
+  </div>
+  <div class="col-md-2 pr-0 pl-0">
+
+    <svg [attr.height]="groupServer.servers.length * rowServerHeight" width="auto" preserveAspectRatio="none"
+         viewBox="0 0 500 1000">
+      <path *ngFor="let server of groupServer.servers; let i = index" class="path-flow"
+            [attr.d]="getPathFor(i,groupServer.servers)" [attr.stroke-width]="getStrokeWidth(server)"
+            fill="none"/>
+    </svg>
+
+  </div>
+  <div class="col-md-9 text-truncate">
+    <div *ngFor="let server of groupServer.servers" [style.height]="rowServerHeight" class="server-line row">
+      <div class="col-md-4 text-truncate">
+        <div class="d-inline-block align-top">
+          <sa-checkbox [color]="server.color" [(ngModel)]="server.visible"></sa-checkbox>
+        </div>
+        <div class="d-inline-block">
+          <b>{{groupServer.groupName}}</b>
+          <div>{{server.serverName}}</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        {{server.numInstances}} of {{server.numInstances}} instances healthy
+      </div>
+      <div class="col-md-2 text-truncate">
+        <div>
+          <b>CPU Utilization: </b> <span>{{server.cpu}}%</span>
+        </div>
+        <div>
+          <b>Rate: </b> <span>{{server.lastRate}} RPS</span>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <ng-template #tipContent><b>{{server.cpu}}%</b></ng-template>
+        <ngb-progressbar placement="left" [ngbTooltip]="tipContent" [value]="server.cpu"></ngb-progressbar>
+      </div>
+
+    </div>
+  </div>
+</div>
+

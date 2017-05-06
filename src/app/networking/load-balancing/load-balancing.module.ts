@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {LoadBalancingRoutingModule} from './load-balancing-routing.module';
 import {LoadBalancingComponent} from './load-balancing.component';
 import {PageHeaderModule} from '../../shared';
-import {NgbButtonsModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbButtonsModule, NgbProgressbarModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NvD3Module} from "angular2-nvd3";
 import { ServersChartComponent } from './servers-chart/servers-chart.component';
@@ -18,6 +18,8 @@ import { TrafficFlowComponent } from './traffic-flow/traffic-flow.component';
     CommonModule,
     LoadBalancingRoutingModule,
     NgbButtonsModule.forRoot(),
+    NgbProgressbarModule.forRoot(),
+    NgbTooltipModule.forRoot(),
     MdCheckboxModule,
     FormsModule,
     ReactiveFormsModule,

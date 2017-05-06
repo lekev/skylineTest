@@ -1,4 +1,3 @@
-<app-page-header [heading]="'Load Balancing'" [icon]="'fa-bar-chart-o'"></app-page-header>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
@@ -8,58 +7,96 @@
         http-collector-lb
       </div>
 
-      <div class="panel-body">
-        <div class="row">
-          <div class="col">
-            <b>Backend</b>
-            <select id="select">
-              <option *ngFor="let loadBalancer of loadBalancers | async" [value]="loadBalancer">{{loadBalancer}}
-              </option>
-            </select>
-          </div>
-          <div class="col text-right">
-            <form [formGroup]="chartTimeForm">
-              <div ngbRadioGroup name="radioBasic" formControlName="time">
-                <label *ngFor="let timeOption of timeOptions" class="btn btn-primary">
-                  <input type="radio" [value]="timeOption.value"> {{timeOption.label}}
-                </label>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col text-right">
-            {{lastOverTimeChart | amDateFormat:'lll'}}
-          </div>
-        </div>
-
-        <div class="row">
-          RPS for {{chartTimeForm.controls.time.value}}
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div appNvD3 [options]="chartOptions" [data]="chartData"></div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-inline">
-            <div *ngFor="let server of chartSeries; let i = index;">
-              <sa-checkbox [color]="server.color" (change)="onCheckServerChange(server)" [(ngModel)]="server.visible">
-                {{server.key}}:{{server.lastMouseValue || 0 | number}}
-              </sa-checkbox>
+      <div class="panel-body ml-5">
+        <div class="panel-body ml-5">
+          <div class="row">
+            <div class="col">
+              <b>Backend</b>
+              <select id="select">
+                <option *ngFor="let loadBalancer of loadBalancers | async" [value]="loadBalancer">{{loadBalancer}}
+                </option>
+              </select>
+            </div>
+            <div class="col text-right">
+              <form [formGroup]="chartTimeForm">
+                <div ngbRadioGroup name="radioBasic" formControlName="time">
+                  <label *ngFor="let timeOption of timeOptions" class="btn btn-primary">
+                    <input type="radio" [value]="timeOption.value"> {{timeOption.label}}
+                  </label>
+                </div>
+              </form>
             </div>
           </div>
 
 
+          <div class="rps-graph p-3  mt-4">
+            <div class="row">
+              <div class="col text-right">
+                {{lastOverTimeChart | amDateFormat:'lll'}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                RPS for {{loadBalancers[0]}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div appNvD3 [options]="chartOptions" [data]="chartData"></div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col form-inline">
+                <div class="ml-2" *ngFor="let server of chartSeries; let i = index;">
+                  <sa-checkbox [color]="server.color" (change)="onCheckServerChange(server)"
+                               [(ngModel)]="server.visible">
+                    {{server.key}}: {{server.lastMouseValue || 0 | number}}
+                  </sa-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="row">
+                    <div class="col">
+                      <b>Frontend Location</b>
+                      <div>
+                        <small> (Total inbound traffic)</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="row">
+                    <div class="col">
+                      <b>Backend</b>
+                      <div>
+                        <small>(1minute ago)</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" *ngFor="let groupServer of groupServers">
+                <div class="col-md-12">
+                  <loadbalancing-traffic-flow [groupServer]="groupServer"></loadbalancing-traffic-flow>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
         </div>
 
       </div>
-
     </div>
   </div>
-</div>
 
 

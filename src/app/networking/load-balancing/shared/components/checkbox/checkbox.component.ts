@@ -55,7 +55,6 @@ export class SaCheckBoxComponent implements ControlValueAccessor {
 
   //From ControlValueAccessor interface
   registerOnChange(fn: any) {
-    console.log('tess')
     this.onChangeCallback = fn;
   }
 

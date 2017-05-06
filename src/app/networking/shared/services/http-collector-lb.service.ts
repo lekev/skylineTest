@@ -7,9 +7,9 @@ export class HttpCollectorLbService {
 
   private loabBalancers = ["http-collector-lb-backend-service"];
   public instanceGroups = [
-    {groupName: "http-collector-asia", code: 'asia', servers: ['central', 'east']},
-    {groupName: "http-collector-europe", code: 'eu', servers: ['central', 'west']},
-    {groupName: "http-collector-North America", code: 'us-central', servers: ['central', 'west']}
+    {groupName: "http-collector-asia", region:'Asia', code: 'asia', servers: ['central-1','central-2','central-3', 'east-2','east-1']},
+    {groupName: "http-collector-europe",region:'Europe', code: 'eu', servers: ['central', 'west']},
+    {groupName: "http-collector-North America",region:'North America', code: 'us-central', servers: ['central', 'west']}
   ];
 
   constructor() {
@@ -27,7 +27,7 @@ export class HttpCollectorLbService {
 
   private getFackeRps(fromDate: Date) {
     let now = new Date().getTime();
-    let dataServers = [];
+    let dataGroupServers = [];
     let timeInterval = 10 * 100000; //Every 10 seconds
     let xAxis = [] ;
 
@@ -38,9 +38,23 @@ export class HttpCollectorLbService {
 
     // For each server we fill fake Y points
     for (let group in this.instanceGroups) {
+
+      let dataGroupServer = {
+        groupName:this.instanceGroups[group].groupName,
+        region:this.instanceGroups[group].region,
+        totalInBound: 0,
+        servers:[]
+      }
+
       for (let server of this.instanceGroups[group]['servers']) {
 
-        let dataServer = {serverName: server, groupName: this.instanceGroups[group].groupName, data: []};
+        let dataServer = {
+          serverName: server,
+          groupName:dataGroupServer.groupName,
+          lastRate:0,
+          cpu:Math.floor(Math.random() * 100),
+          numInstances:Math.floor(Math.random() * 5) ,
+          data: []};
 
         // We choose the first number to get a better curve
         dataServer.data.push([xAxis[0], Math.floor(Math.random() * 10000) ]);
@@ -60,13 +74,32 @@ export class HttpCollectorLbService {
           dataServer.data.push([xAxis[i],newPoint])
         }
 
-        dataServers.push(dataServer);
+        // Update Total Inbound
+        let lastRate = dataServer.data[dataServer.data.length - 1][1];
+        dataGroupServer.totalInBound += lastRate;
+
+        dataServer.lastRate = lastRate;
+
+        dataGroupServer.servers.push(dataServer);
       }
+
+      // We set the proportion of traffic to this server on group
+      dataGroupServer.servers.forEach(server=>{
+        server.trafficProportion = (server.lastRate / dataGroupServer.totalInBound);
+      });
+
+      dataGroupServers.push(dataGroupServer);
 
     }
 
+    // We set the proportion of traffic to this group on every groups
+    let totalTraffic = dataGroupServers.reduce((memo, group)=>(memo+group.totalInBound),0);
+    dataGroupServers.forEach(group=>{
+      group.trafficProportion = (group.totalInBound / totalTraffic);
+    });
 
-    return dataServers;
+
+    return dataGroupServers;
   }
 
 }

@@ -1,0 +1,25 @@
+.server-line {
+  padding: 5px;
+  height: 75px;
+  border-top: solid 1px #d8d8d8;
+}
+
+.server-name {
+  padding: 10px;
+  border-right: solid 3px #3dcbb2;
+}
+
+.path-flow{
+  stroke: #3dcbb2;
+  opacity: .6;
+}
+
+.path-flow:hover{
+  opacity: 1;
+}
+
+
+/deep/  .progress-bar {
+  background: #3dcbb2;
+          padding-top: 5px;
+}
