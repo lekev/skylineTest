@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ChartsModule as Ng2Charts} from 'ng2-charts';
-
 import {LoadBalancingRoutingModule} from './load-balancing-routing.module';
 import {LoadBalancingComponent} from './load-balancing.component';
 import {PageHeaderModule} from '../../shared';
@@ -12,12 +10,12 @@ import { ServersChartComponent } from './servers-chart/servers-chart.component';
 import {MomentModule} from "angular2-moment";
 import {MdCheckboxModule} from "@angular/material";
 import { SaCheckBoxComponent} from './shared/components/checkbox/checkbox.component';
+import { TrafficFlowComponent } from './traffic-flow/traffic-flow.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    Ng2Charts,
     LoadBalancingRoutingModule,
     NgbButtonsModule.forRoot(),
     MdCheckboxModule,
@@ -27,7 +25,7 @@ import { SaCheckBoxComponent} from './shared/components/checkbox/checkbox.compon
     PageHeaderModule,
     NvD3Module
   ],
-  declarations: [LoadBalancingComponent, ServersChartComponent, SaCheckBoxComponent]
+  declarations: [LoadBalancingComponent, ServersChartComponent, SaCheckBoxComponent, TrafficFlowComponent]
 })
 export class LoadBalancingModule {
 }

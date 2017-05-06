@@ -64,9 +64,7 @@ export class LoadBalancingComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private httpCollectorLbService: HttpCollectorLbService) {
-  }
 
-  ngOnInit() {
     this.loadBalancers = this.httpCollectorLbService.getLoadBalancers();
     this.chartTimeForm = this.formBuilder.group({
       time: 7 * 24
@@ -114,23 +112,39 @@ export class LoadBalancingComponent implements OnInit {
         }
       }
     };
-    this.loadData();
   }
 
-  loadData() {
+  ngOnInit() {
 
-    this.httpCollectorLbService.getRpsForBackend('test', moment().subtract(7, 'day').toDate()).then((data) => {
+    this.chartTimeForm.valueChanges.subscribe(val=>{
+      console.log(val)
+      this.loadData(moment().subtract(val.time, 'hour').toDate())
+    })
+
+    // Init the default time value
+    this.loadData(moment().subtract(this.chartTimeForm.controls.time.value, 'hour').toDate())
+
+  }
+
+  loadData(fromDate) {
+
+    this.httpCollectorLbService.getRpsForBackend('test', fromDate).then((data) => {
 
       this.chartSeries = data.map((d,i)=>{
         return {
           key:`${d.groupName} (${d.serverName})`,
-          values:d.data,color: this.colors[i%this.colors.length],
-          area:true,
-          visible: i === 0 ? true: false,
-          disabled: i === 0 ? false: true
+          values:d.data,
+          color: this.colors[i%this.colors.length],
+          area:true
         };
       });
-      // fix the problem that nvd3 component
+
+      // set previous state if exists
+      if(this.chartData){
+
+      }
+
+      // fix that nvd3 keep reference to passed object
       this.chartData = this.chartSeries.slice();
       console.log(this.chartData)
     });
