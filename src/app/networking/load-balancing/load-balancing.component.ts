@@ -99,6 +99,7 @@ export class LoadBalancingComponent implements OnInit {
       this.groupServers.forEach((group,i)=>{
         group.servers.forEach((server,j)=>{
           server.color = this.colors[index %this.colors.length];
+          server.enabled = true;
           index++
         })
       });

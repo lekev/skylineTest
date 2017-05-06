@@ -19,7 +19,7 @@
     <div *ngFor="let server of groupServer.servers" [style.height]="rowServerHeight" class="server-line row">
       <div class="col-md-4 text-truncate">
         <div class="d-inline-block align-top">
-          <sa-checkbox [color]="server.color" [(ngModel)]="server.visible"></sa-checkbox>
+          <sa-checkbox [color]="server.color" [(ngModel)]="server.enabled"></sa-checkbox>
         </div>
         <div class="d-inline-block">
           <b>{{groupServer.groupName}}</b>
